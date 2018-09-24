@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<jboss-deployment-structure xmlns="urn:jboss:deployment-structure:1.2"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<deployment>
+		<dependencies>
+<!-- 			<module name="org.infinispan" services="export" /> -->
+<!-- 			<module name="org.infinispan.commons" services="export" /> -->
+<!-- 			<module name="javax.jms.api" services="export"/>  -->
+<!-- 			<module name="org.infinispan.query" services="export" /> -->
+		  <!-- 	<module name="org.apache.commons.lang" services="export" />
+			<module name="org.apache.camel" services="export" />
+			<module name="org.apache.camel.component.jms" services="export" />
+			<module name="org.apache.camel.component.activemq" services="export" /> -->
+<!-- 			 <module name="deployment.activemq-ra.rar" services="import" />  -->
+			<!-- <module name="org.springframework.jms" services="export" /> -->
+<!-- 			<module name="com.sun.xml.bind" services="export" /> -->
+<!-- 			<module name="com.google.guava" services="export" /> -->
+				<module name="org.dom4j"/>
+		</dependencies>
+		<exclusions>
+			<!-- <module name="geronimo-j2ee-management_1.1_spec"/> -->
+<!-- 			<module name="org.jgroups"/> -->
+			<!-- <module name="org.jboss.netty"/> -->
+			<!-- <module name="javax.jms.api"/> -->
+			
+		</exclusions>
+	</deployment>
+</jboss-deployment-structure>
