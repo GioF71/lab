@@ -1,0 +1,124 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>eu.sia.mts</groupId>
+	<artifactId>mts</artifactId>
+	<version>DEV</version>
+	<name>mts-parent</name>
+	<description>MTS</description>
+	<packaging>pom</packaging>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.plugin.version>3.3</maven.compiler.plugin.version>
+		<maven.resources.plugin.version>2.6</maven.resources.plugin.version>
+		<maven.war.plugin.version>2.6</maven.war.plugin.version>
+		<maven.surefire.plugin.version>2.19.1</maven.surefire.plugin.version>
+		<ejb-api.version>3.0</ejb-api.version>
+		<junit.version>4.12</junit.version>
+		<cxf.version>3.1.6</cxf.version>
+		<fasterxml.jackson.version>2.8.3</fasterxml.jackson.version>
+		<org.infinispan.version>8.2.4.Final</org.infinispan.version>
+		<org.apache.activemq.version>5.14.1</org.apache.activemq.version>
+		<org.apache.activemq-core.version>5.7.0</org.apache.activemq-core.version>
+		<org.wilfly.bom.version>10.1.0.Final</org.wilfly.bom.version>
+		<org.apache.camel.version>2.18.0</org.apache.camel.version>
+		<org.springframework.spring.version>4.3.3.RELEASE</org.springframework.spring.version>
+		<com.h2database.version>1.3.175</com.h2database.version>
+		<com.google.guava.version>19.0</com.google.guava.version>
+		<commons-lang.version>2.6</commons-lang.version>
+		<maven.javadoc.failOnError>false</maven.javadoc.failOnError>
+		<apache.commons-lang.version>2.6</apache.commons-lang.version> 
+		<vaadin.version>8.5.2</vaadin.version>
+	</properties>
+
+<!-- 	<pluginRepositories> -->
+<!-- 		<pluginRepository> -->
+<!-- 			<id>vaadin-prereleases</id> -->
+<!-- 			<url>https://maven.vaadin.com/vaadin-prereleases</url> -->
+<!-- 		</pluginRepository> -->
+<!-- 	</pluginRepositories> -->
+
+<!-- 	<repositories> -->
+<!-- 		<repository> -->
+<!-- 			<id>vaadin-prereleases</id> -->
+<!-- 			<url>https://maven.vaadin.com/vaadin-prereleases</url> -->
+<!-- 		</repository> -->
+<!-- 		<repository> -->
+<!-- 			<id>Vaadin Directory</id> -->
+<!-- 			<url>http://maven.vaadin.com/vaadin-addons</url> -->
+<!-- 		</repository> -->
+<!-- 	</repositories> -->
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.wildfly.bom</groupId>
+				<artifactId>wildfly-javaee7-with-tools</artifactId>
+				<scope>import</scope>
+				<type>pom</type>
+				<version>${org.wilfly.bom.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.infinispan</groupId>
+				<artifactId>infinispan-bom</artifactId>
+				<scope>import</scope>
+				<type>pom</type>
+				<version>${org.infinispan.version}</version>
+			</dependency>
+            <dependency>
+                <groupId>com.vaadin</groupId>
+                <artifactId>vaadin-bom</artifactId>
+                <version>${vaadin.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${maven.compiler.plugin.version}</version>
+				<configuration>
+					<source>${maven.compiler.source}</source>
+					<target>${maven.compiler.target}</target>
+					<maxmem>256M</maxmem>
+					<showDeprecation>true</showDeprecation>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>${maven.war.plugin.version}</version>
+				<configuration>
+					<failOnMissingWebXml>false</failOnMissingWebXml>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>${maven.surefire.plugin.version}</version>
+				<configuration>
+					<argLine>-Djava.net.preferIPv4Stack=true</argLine>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>${maven.resources.plugin.version}</version>
+				<configuration>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<modules>
+		<module>data-feed</module>
+	</modules>
+</project>
