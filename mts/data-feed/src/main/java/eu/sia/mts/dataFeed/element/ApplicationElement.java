@@ -1,4 +1,4 @@
-package eu.sia.mts.dataFeed.service;
+package eu.sia.mts.dataFeed.element;
 
 import com.vaadin.ui.Component;
 
