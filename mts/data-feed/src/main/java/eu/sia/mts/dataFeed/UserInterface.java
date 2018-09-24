@@ -14,7 +14,6 @@ import com.vaadin.ui.VerticalLayout;
 
 import eu.sia.mts.dataFeed.service.Greeter;
 
-
 @CDIUI("")
 public class UserInterface extends UI {
 	
@@ -36,6 +35,7 @@ public class UserInterface extends UI {
 	public void showLayout(VaadinRequest request) {
 		VerticalLayout view = new VerticalLayout();
 		TextField greeted = new TextField("");
+		greeted.setDescription("Name to be greeted here");
 		view.addComponent(greeted);
 	    Button say = new Button("Say Hello");
 	    say.addClickListener(new ClickListener() {
