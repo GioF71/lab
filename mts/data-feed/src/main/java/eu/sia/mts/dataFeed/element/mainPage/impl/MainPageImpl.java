@@ -64,7 +64,6 @@ public class MainPageImpl implements MainPage {
 			@Override
 			public void buttonClick(ClickEvent event) {
 				String newText = greeter.sayHello(greeted.getValue());
-				//view.addComponent(new Label(newText));
 				String currentText = textArea.getValue();
 				currentText = Optional.ofNullable(currentText)
 								.filter(t -> t.length() > 0)
@@ -74,7 +73,7 @@ public class MainPageImpl implements MainPage {
 			}
 		});
 	    hl.addComponent(say);
-	    //view.addComponent(hl);
+	    view.addComponent(hl);
 	    
 	    ApplicationElement elem = directory.get(SampleElement.class);
 	    Component sampleC = elem.create();
