@@ -1,6 +1,7 @@
 package eu.sia.mts.dataFeed.element.mainPage.impl;
 
 import java.util.Optional;
+import java.util.function.Consumer;
 
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
@@ -35,6 +36,8 @@ public class MainPageImpl implements MainPage {
 	
 	@Inject
 	private Greeter greeter;
+	
+	interface TextConsumer extends Consumer<String> {}
 
 	@Override
 	public Component create() {
@@ -47,33 +50,25 @@ public class MainPageImpl implements MainPage {
 		view.addComponent(menuBar);
 		view.setComponentAlignment(menuBar, Alignment.TOP_LEFT);
 
-		HorizontalLayout hl = new HorizontalLayout();
-		
-		TextField greeted = new TextField("Name");
-		greeted.setDescription("Name to be greeted here");
-		hl.addComponent(greeted);
-		
 	    TextArea textArea = new TextArea();
 	    textArea.setHeight(100, Unit.PERCENTAGE);
 	    textArea.setWidth(100, Unit.PERCENTAGE);
-	    Button say = new Button("Say Hello");
-	    say.addClickListener(new ClickListener() {
+	    
+	    TextConsumer textConsumer = new TextConsumer() {
 			
-			private static final long serialVersionUID = 1L;
-
 			@Override
-			public void buttonClick(ClickEvent event) {
-				String newText = greeter.sayHello(greeted.getValue());
-				String currentText = textArea.getValue();
-				currentText = Optional.ofNullable(currentText)
+			public void accept(String newText) {
+				String resultingText = textArea.getValue();
+				resultingText = Optional.ofNullable(resultingText)
 								.filter(t -> t.length() > 0)
 								.map(t -> newText.concat("\n").concat(t))
 								.orElse(newText);
-				textArea.setValue(currentText);
+				textArea.setValue(resultingText);
 			}
-		});
-	    hl.addComponent(say);
-	    view.addComponent(hl);
+		};
+
+	    Component greeter = createGreeterLayout(textConsumer);
+	    view.addComponent(greeter);
 	    
 	    ApplicationElement elem = directory.get(SampleElement.class);
 	    Component sampleC = elem.create();
@@ -84,5 +79,25 @@ public class MainPageImpl implements MainPage {
 	    
 	    view.setExpandRatio(textArea, 1);
 	    return view;
+	}
+
+	private Component createGreeterLayout(TextConsumer consumer) {
+		HorizontalLayout hl = new HorizontalLayout();
+		TextField toBeGreeted = new TextField("Name");
+		toBeGreeted.setDescription("Name to be greeted here");
+		hl.addComponent(toBeGreeted);
+	    Button sayHello = new Button("Say Hello");
+	    sayHello.addClickListener(new ClickListener() {
+			
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void buttonClick(ClickEvent event) {
+				String newText = greeter.sayHello(toBeGreeted.getValue());
+				consumer.accept(newText);
+			}
+		});
+	    hl.addComponent(sayHello);
+		return hl;
 	}
 }
